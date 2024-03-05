@@ -93,5 +93,14 @@ where milliseconds>(
 order by milliseconds desc;   
 
 -- Q1: Find how much amount spent by each customer on artists? Write a query to return customer name, artist name and total spent    
-
+SELECT DISTINCT email,first_name, last_name
+FROM customer
+JOIN invoice ON customer.customer_id = invoice.customer_id
+JOIN invoiceline ON invoice.invoice_id = invoiceline.invoice_id
+WHERE track_id IN(
+	SELECT track_id FROM track
+	JOIN genre ON track.genre_id = genre.genre_id
+	WHERE genre.name LIKE 'Rock'
+)
+ORDER BY email;
 
